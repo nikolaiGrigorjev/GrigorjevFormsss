@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,11 +17,18 @@ namespace GrigorjevFormsss
         Button btn;
         Label lbl;
         PictureBox pctBox;
-        pubclic int count = 1;
+        CheckBox chkBox, chkBox2, chkBox3,chkBox4;
+        MessageBox msgBox;
+        RadioButton rdBut;
+
+        public int count = 1;
+        public int n = 0;
+        public bool t = false;
+        public int click = 0;
         public Form1()
         {
-            this.Height = 500;
-            this.Width = 700;
+            this.Height = 900;
+            this.Width = 900;
             this.Text = "NBA Forms";
             Image img = new Bitmap(@"C:\Users\opilane\source\repos\GrigorjevFORM\GrigorjevFormsss\artworks-ukQRhAYBpFcvtoAF-sYbxfw-t500x500.jpg");
             this.BackgroundImage = img;
@@ -30,9 +38,9 @@ namespace GrigorjevFormsss
             TreeNode tn = new TreeNode("Elemendid");
             tn.Nodes.Add(new TreeNode("Nupp"));
             tn.Nodes.Add(new TreeNode("Silt-label"));
-            tn.Nodes.Add(new TreeNode("Märkeruut-CheckBox"));
-            tn.Nodes.Add(new TreeNode("Radionupp-Radiobutton"));
-            tn.Nodes.Add(new TreeNode("Tekstkast-TextBox"));
+            tn.Nodes.Add(new TreeNode("CheckBox"));
+            tn.Nodes.Add(new TreeNode("Radiobutton"));
+            tn.Nodes.Add(new TreeNode("TextBox"));
             tn.Nodes.Add(new TreeNode("PictureBox"));
             tn.Nodes.Add(new TreeNode("Kaart-TabControl"));
             tn.Nodes.Add(new TreeNode("MessageBox"));
@@ -43,11 +51,13 @@ namespace GrigorjevFormsss
 
             //nupp
             btn = new Button();
-            btn.Text = "Vajuta siia";
+            btn.Text = "Если хочешь выйти нажми на кнопку";
             btn.Location = new Point(100, 50);
-            btn.Height = 20;
-            btn.Width = 100;
+            btn.Height = 150;
+            btn.Width = 200;
             btn.Click += Btn_Click;
+            btn.MouseHover += Btn_MouseHover;
+            btn.MouseLeave += Btn_MouseLeave;
             //pealkiri
             lbl = new Label();
             lbl.Text = "Elementide loomine c# abi";
@@ -60,11 +70,65 @@ namespace GrigorjevFormsss
             pctBox = new PictureBox();
             pctBox.Size = new Size(300, 170);
             pctBox.Location = new Point(150, 100);
-
+            pctBox.DoubleClick += PctBox_DoubleClick;
             pctBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pctBox.Image = Image.FromFile(@"C:\Users\opilane\source\repos\GrigorjevFORM\GrigorjevFormsss\el-primo-brawl-stars-guide.jpg");
 
+
+            //RadioButton
+            rdBut = new RadioButton();
+
+            rdBut.Left = 200;
+            rdBut.Top = 200;
+            rdBut.Width = 150;
+            rdBut.Height = 50;
+            rdBut.Text = "Dont kill me ";
+
+            //checkBox
+            chkBox = new CheckBox();
+            chkBox2 = new CheckBox();
+            chkBox3 = new CheckBox();
+            chkBox4 = new CheckBox();
+
+            chkBox.CheckedChanged += ChkBox_CheckedChanged;
+
+            chkBox2.Left = 250;
+            chkBox2.Top = 250;
+            chkBox2.Width = 150;
+            chkBox2.Height = 50;
+
+            chkBox2.Image = Image.FromFile(@"..\..\Images\vorpos.png");
+            chkBox2.Location = new Point(300, 350);
+
+            chkBox.Left = 200;
+            chkBox.Top = 200;
+            chkBox.Width = 150;
+            chkBox.Height = 50;
+
+            chkBox3.Left = 250;
+            chkBox3.Top = 250;
+            chkBox3.Width = 300;
+            chkBox3.Height = 250;
+
+            chkBox4.Left = 250;
+            chkBox4.Top = 250;
+            chkBox4.Width = 400;
+            chkBox4.Height = 450;
             
+
+            // Set background and foreground  
+            chkBox.BackColor = Color.Orange;
+            chkBox.ForeColor = Color.Black;
+            chkBox.Text = "Hello";
+            chkBox2.Text = "Tere";
+            chkBox2.ForeColor = Color.Red;
+            chkBox.Font = new Font("Georgia", 12);
+            chkBox3.ForeColor = Color.Green;
+            chkBox4.ForeColor = Color.LightBlue;
+            chkBox3.Text = "..";
+            chkBox4.Text = "...";
+
+
 
 
 
@@ -72,6 +136,45 @@ namespace GrigorjevFormsss
             tree.Nodes.Add(tn);
             this.Controls.Add(tree);
 
+            
+        }
+
+        private void Btn_MouseLeave(object sender, EventArgs e)
+        {
+            btn.BackColor = Color.Transparent;
+        }
+
+        private void Btn_MouseHover(object sender, EventArgs e)
+        {
+            btn.BackColor = Color.Green;
+        }
+
+        private void PctBox_DoubleClick(object sender, EventArgs e)
+        {
+            string[] images = { "antonov1.jpg", "grib.jpg", "tommy.jpg" };
+            string fail = images[click];
+            pctBox.Image = Image.FromFile(@"..\..\Images\" + fail);
+            click++;
+            if (click == 3) { click = 0; }
+        }
+
+        
+
+        private void ChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (t)
+            {
+                this.Size = new Size(1000, 1000);
+                chkBox.Text = "Teeme väiksem";
+                t = false;
+            }
+            else
+            {
+                this.Size = new Size(700, 500);
+                chkBox2.Text = "Hello";
+                t = true;
+            }
             
         }
 
@@ -85,9 +188,12 @@ namespace GrigorjevFormsss
             lbl.BackColor = Color.FromArgb(200, 10, 20);
         }
 
+
+
         private void Btn_Click(object sender, EventArgs e)
         {
-            //
+            this.Close();
+            
         }
 
         private void Tree_AfterSelect(object sender, TreeViewEventArgs e)
@@ -104,9 +210,48 @@ namespace GrigorjevFormsss
             {
                 this.Controls.Add(pctBox);
             }
+            else if (e.Node.Text == "Radiobutton")
+            {
+                this.Controls.Add(rdBut);
+            }
+            else if (e.Node.Text == "CheckBox")
+            {
+                this.Controls.Add(chkBox);
+                this.Controls.Add(chkBox2);
+            }
+            else if (e.Node.Text == "MessageBox")
+            {
+                MessageBox.Show("MessageBox", "TERE TERE!!!");
+                var answer = MessageBox.Show("Tahad InputBox näha?", "Aken koos nupudega", MessageBoxButtons.YesNo);
 
+                if (answer == DialogResult.Yes)
+                {
+                    string text = Interaction.InputBox("Sisesta siia mingi teksti", "InputBox", "Mingi teksti");
+                    if (MessageBox.Show("Kas tahad tekst saada Tekskastisse?", "Teksti salvesyamine", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        lbl.Text = text;
+                        Controls.Add(lbl);
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Miks....");
+                    }
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Mine ära....");
+                }
+
+
+
+
+                
+            }   
         }
 
-
+       
     }
 }
