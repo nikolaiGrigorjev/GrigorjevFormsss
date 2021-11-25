@@ -18,8 +18,8 @@ namespace GrigorjevFormsss
         Label lbl;
         PictureBox pctBox;
         CheckBox chkBox, chkBox2, chkBox3,chkBox4;
-        MessageBox msgBox;
-        RadioButton rdBut;
+        
+        RadioButton rdBut, rdBut2 , rdBut3;
 
         public int count = 1;
         public int n = 0;
@@ -42,7 +42,7 @@ namespace GrigorjevFormsss
             tn.Nodes.Add(new TreeNode("Radiobutton"));
             tn.Nodes.Add(new TreeNode("TextBox"));
             tn.Nodes.Add(new TreeNode("PictureBox"));
-            tn.Nodes.Add(new TreeNode("Kaart-TabControl"));
+            tn.Nodes.Add(new TreeNode("Kaart"));
             tn.Nodes.Add(new TreeNode("MessageBox"));
             
 
@@ -76,13 +76,12 @@ namespace GrigorjevFormsss
 
 
             //RadioButton
-            rdBut = new RadioButton();
+            
 
-            rdBut.Left = 200;
-            rdBut.Top = 200;
-            rdBut.Width = 150;
-            rdBut.Height = 50;
-            rdBut.Text = "Dont kill me ";
+
+
+
+
 
             //checkBox
             chkBox = new CheckBox();
@@ -210,14 +209,56 @@ namespace GrigorjevFormsss
             {
                 this.Controls.Add(pctBox);
             }
-            else if (e.Node.Text == "Radiobutton")
-            {
-                this.Controls.Add(rdBut);
-            }
             else if (e.Node.Text == "CheckBox")
             {
                 this.Controls.Add(chkBox);
                 this.Controls.Add(chkBox2);
+            }
+            else if (e.Node.Text == "Kaart")
+            {
+                TabControl tabC = new TabControl();
+                tabC.Location = new Point(450, 50);
+                tabC.Size = new Size(400, 200);
+                
+                TabPage tabP1 = new TabPage("Anime");
+                WebBrowser wb = new WebBrowser();
+                wb.Url = new Uri("https://jut.su/");
+                tabP1.Controls.Add(wb);
+                
+                TabPage tabP2 = new TabPage("Teine");
+                TabPage tabP3 = new TabPage("Kolmas");
+                tabC.Controls.Add(tabP1);
+                tabC.Controls.Add(tabP2);
+                tabC.Controls.Add(tabP3);
+                this.Controls.Add(tabC);
+            }
+
+            else if (e.Node.Text == "Radiobutton")
+            {
+                rdBut = new RadioButton();
+                rdBut.Text = "Red";
+                rdBut.Location = new Point(450, 100);
+
+                rdBut2 = new RadioButton();
+                rdBut2.Location = new Point(570, 100);
+                rdBut2.Text = "Yellow";
+               
+
+
+                rdBut3 = new RadioButton();
+                rdBut3.Text = "Delete Fon";
+                rdBut3.Location = new Point(600, 100);
+
+                this.Controls.Add(rdBut);
+                this.Controls.Add(rdBut2);
+                this.Controls.Add(rdBut3);
+
+                rdBut.CheckedChanged += new EventHandler(rdBut_Checked);
+                rdBut2.CheckedChanged += new EventHandler(rdBut_Checked);
+                rdBut3.CheckedChanged += new EventHandler(rdBut_Checked);
+
+
+
             }
             else if (e.Node.Text == "MessageBox")
             {
@@ -252,6 +293,32 @@ namespace GrigorjevFormsss
             }   
         }
 
+        
        
+
+        private void rdBut_Checked(object sender, EventArgs e)
+        {
+            if (rdBut.Checked)
+            {
+                this.BackColor = Color.Red;
+                rdBut2.ForeColor = Color.Yellow;
+                rdBut.ForeColor = Color.Yellow;
+            }
+            else if (rdBut2.Checked)
+            {
+                this.BackColor = Color.Yellow;
+                rdBut2.ForeColor = Color.Red;
+                rdBut.ForeColor = Color.Red;
+            }
+            else if (rdBut3.Checked)
+            {
+                this.BackColor = Color.White;
+                BackgroundImage.Visible = false;
+
+            }
+
+
+
+        }
     }
 }
