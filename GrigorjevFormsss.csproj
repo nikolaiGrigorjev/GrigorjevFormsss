@@ -86,12 +86,14 @@
     <Content Include="harden.jpg" />
     <Content Include="Images\antonov1.jpg" />
     <Content Include="Images\grib.jpg" />
+    <Content Include="Images\spongebo.jpg" />
     <Content Include="Images\tere.jpg" />
     <Content Include="Images\tommy.jpg" />
     <Content Include="Images\vorpos.png" />
     <Content Include="kobe.jpg" />
     <Content Include="lavine.jpg" />
     <Content Include="lebron.jpg" />
+    <Content Include="Images\menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,8 +18,8 @@ namespace GrigorjevFormsss
         Label lbl;
         PictureBox pctBox;
         CheckBox chkBox, chkBox2, chkBox3,chkBox4;
-        
-        RadioButton rdBut, rdBut2 , rdBut3;
+        ListBox lstBox;
+        RadioButton rdBut, rdBut2 , rdBut3, rdBut4;
 
         public int count = 1;
         public int n = 0;
@@ -42,9 +42,12 @@ namespace GrigorjevFormsss
             tn.Nodes.Add(new TreeNode("Radiobutton"));
             tn.Nodes.Add(new TreeNode("TextBox"));
             tn.Nodes.Add(new TreeNode("PictureBox"));
+            tn.Nodes.Add(new TreeNode("ListBox"));
             tn.Nodes.Add(new TreeNode("Kaart"));
             tn.Nodes.Add(new TreeNode("MessageBox"));
-            
+            tn.Nodes.Add(new TreeNode("DataGridView"));
+            tn.Nodes.Add(new TreeNode("MainMenu"));
+
 
 
 
@@ -69,7 +72,7 @@ namespace GrigorjevFormsss
 
             pctBox = new PictureBox();
             pctBox.Size = new Size(300, 170);
-            pctBox.Location = new Point(150, 100);
+            pctBox.Location = new Point(100, 400);
             pctBox.DoubleClick += PctBox_DoubleClick;
             pctBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pctBox.Image = Image.FromFile(@"C:\Users\opilane\source\repos\GrigorjevFORM\GrigorjevFormsss\el-primo-brawl-stars-guide.jpg");
@@ -91,33 +94,38 @@ namespace GrigorjevFormsss
 
             chkBox.CheckedChanged += ChkBox_CheckedChanged;
 
-            chkBox2.Left = 250;
-            chkBox2.Top = 250;
+            chkBox2.Left = 130;
+            chkBox2.Top = 200;
             chkBox2.Width = 150;
             chkBox2.Height = 50;
 
-            chkBox2.Image = Image.FromFile(@"..\..\Images\vorpos.png");
-            chkBox2.Location = new Point(300, 350);
+            
+            chkBox2.Location = new Point(130, 300);
 
-            chkBox.Left = 200;
+            chkBox.Left = 130;
             chkBox.Top = 200;
             chkBox.Width = 150;
             chkBox.Height = 50;
 
-            chkBox3.Left = 250;
+            chkBox3.Left = 100;
             chkBox3.Top = 250;
             chkBox3.Width = 300;
             chkBox3.Height = 250;
 
-            chkBox4.Left = 250;
+            chkBox4.Left = 100;
             chkBox4.Top = 250;
             chkBox4.Width = 400;
             chkBox4.Height = 450;
+
+           
             
+
 
             // Set background and foreground  
             chkBox.BackColor = Color.Orange;
             chkBox.ForeColor = Color.Black;
+            chkBox2.BackColor = Color.Purple;
+            chkBox2.ForeColor = Color.Black;
             chkBox.Text = "Hello";
             chkBox2.Text = "Tere";
             chkBox2.ForeColor = Color.Red;
@@ -224,38 +232,87 @@ namespace GrigorjevFormsss
                 WebBrowser wb = new WebBrowser();
                 wb.Url = new Uri("https://jut.su/");
                 tabP1.Controls.Add(wb);
+
+                TabPage tabP2 = new TabPage("Picture");
+                WebBrowser wb2 = new WebBrowser();
+                wb2.Url = new Uri("https://www.tthk.ee/");
+                tabP2.Controls.Add(wb2);
+
+
+
                 
-                TabPage tabP2 = new TabPage("Teine");
-                TabPage tabP3 = new TabPage("Kolmas");
                 tabC.Controls.Add(tabP1);
                 tabC.Controls.Add(tabP2);
-                tabC.Controls.Add(tabP3);
+                
                 this.Controls.Add(tabC);
+            }
+            else if (e.Node.Text == "MainMenu")
+            {
+                MainMenu menu = new MainMenu();
+                MenuItem menuFile = new MenuItem("File");
+                menuFile.MenuItems.Add("Exit", new EventHandler(menuFile_Exit_Select));
+                menu.MenuItems.Add(menuFile);
+                this.Menu = menu;
+
+                
+            }
+            else if (e.Node.Text == "ListBox")
+            {
+                lstBox = new ListBox();
+                lstBox.Items.Add("Rohaline");
+                lstBox.Items.Add("Kollane");
+                lstBox.Items.Add("Sinine");
+
+                lstBox.Items.Add("Punane");
+                lstBox.Location = new Point(400,250);
+                lstBox.SelectedIndexChanged += new EventHandler(lstBox_SelectedIndexChanged);
+                this.Controls.Add(lstBox);
+                
+            }
+            else if (e.Node.Text == "DataGridView")
+            {
+                DataSet ds = new DataSet("XML fail.Menüü");
+                ds.ReadXml(@"..\..\Images\menu.xml");
+                DataGridView dg = new DataGridView();
+                dg.Width = 300;
+                dg.Height = 150;
+                dg.Location = new Point(400, 344);
+                dg.AutoGenerateColumns = true;
+                dg.DataSource = ds;
+                dg.DataMember = "book";
+                
+                this.Controls.Add(dg);
             }
 
             else if (e.Node.Text == "Radiobutton")
             {
                 rdBut = new RadioButton();
                 rdBut.Text = "Red";
-                rdBut.Location = new Point(450, 100);
+                rdBut.Location = new Point(570, 100);
 
                 rdBut2 = new RadioButton();
-                rdBut2.Location = new Point(570, 100);
+                rdBut2.Location = new Point(570, 200);
                 rdBut2.Text = "Yellow";
                
 
 
                 rdBut3 = new RadioButton();
                 rdBut3.Text = "Delete Fon";
-                rdBut3.Location = new Point(600, 100);
+                rdBut3.Location = new Point(570, 300);
+
+                rdBut4 = new RadioButton();
+                rdBut4.Text = "Surprize";
+                rdBut4.Location = new Point(570, 400);
 
                 this.Controls.Add(rdBut);
                 this.Controls.Add(rdBut2);
                 this.Controls.Add(rdBut3);
+                this.Controls.Add(rdBut4);
 
                 rdBut.CheckedChanged += new EventHandler(rdBut_Checked);
                 rdBut2.CheckedChanged += new EventHandler(rdBut_Checked);
                 rdBut3.CheckedChanged += new EventHandler(rdBut_Checked);
+                rdBut4.CheckedChanged += new EventHandler(rdBut_Checked);
 
 
 
@@ -289,12 +346,20 @@ namespace GrigorjevFormsss
 
 
 
+
                 
             }   
         }
 
-        
-       
+        private void menuFile_Exit_Select(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void lstBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
 
         private void rdBut_Checked(object sender, EventArgs e)
         {
@@ -312,10 +377,21 @@ namespace GrigorjevFormsss
             }
             else if (rdBut3.Checked)
             {
-                this.BackColor = Color.White;
-                BackgroundImage.Visible = false;
+             
+            this.BackColor = Color.White;
+                this.BackgroundImage = null;
 
             }
+            else if (rdBut4.Checked == true)
+            {
+                MessageBox.Show("Surprize)");
+                return;
+
+            }
+
+
+
+
 
 
 
